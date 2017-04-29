@@ -92,3 +92,4 @@ ENV/
 *.out
 *.vscode
 *.pdf
+*.tar.gz
