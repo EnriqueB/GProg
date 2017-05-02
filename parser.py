@@ -19,9 +19,12 @@ q = quadGen()
 
 start = 'program'
 
+#first rule
 def p_program(p):
     '''program : program2 file  MOD MOD program3'''
     global directoryTable, functionList, q, geneticOperators, operators
+    #parameter and function files need to be generated
+    #so the virtual machine may use them
     file = open("parameters.gp", "a")
     file.write(str(len(functionList))+"\n")
     for k, v in geneticOperators.iteritems():
@@ -101,6 +104,7 @@ def p_var_declaration(p):
 
 def p_var_seen(p):
     '''var_seen :'''
+    #when the ID of a variable has been found. 
     global seenType, directoryTable, functionList
     func = directoryTable[functionList[-1]]
     func.add_var(p[-1], seenType)
@@ -284,6 +288,7 @@ def p_function(p):
 
 def p_seen_function(p):
     '''seen_function :'''
+    #excuted when ID of a function is found
     global functionList
     global directoryTable
     functionID = p[-1]
@@ -300,6 +305,9 @@ def p_seen_function(p):
 
 def p_func(p):
     '''func : LBRACE func2 func3 RETURN expression SEMI RBRACE'''
+    #when the definition of a function terminates
+    #the relevant information about it must be printed
+    #to file along with the quads.
     global q, functionList, directoryTable
     q.generateQuad("ret", None, None, q.popOperandStack())
     fileName = str(len(functionList))+".gp"
