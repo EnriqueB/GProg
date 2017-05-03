@@ -387,7 +387,7 @@ int main() {
 	//start of the run
 	cout << "Starting...\n";
 	for (; generation < GENERATIONS; generation++) {
-		if(GENERATIONS/10 == generation){
+		if(generation % (GENERATIONS/10) == 0){
 			cout<<"Generation : "<<generation<<"...\n";
 		}
 		generateOffspring();

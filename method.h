@@ -141,7 +141,7 @@ double method::execute(vector <double> parameters) {
 
 	while (pC < instructions.size()) {
 		if (total++ > 3000) {
-			cout << "Error, possible infinite loop in tree...\n";
+			cout << "ERROR: possible infinite loop in function "<<name<<"\n";
 			exit(EXIT_FAILURE);
 		}
 		if (instructions[pC].opt == "goto") {

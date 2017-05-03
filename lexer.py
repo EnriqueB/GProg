@@ -103,9 +103,8 @@ def t_ID(t):
     return t
 
 def t_error(t):
-    print "Lexical Error in: "
-    print  t.value[0], " in pos ", t.lexer.lineno
+    print "ERROR: Lexical Error in: "
+    print  t.value[0], " in pos: ", t.lexer.lineno
     exit(-1)
-    t.lexer.skip(1)
 
 lexer = lex.lex()

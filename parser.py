@@ -55,7 +55,7 @@ def p_descriptors(p):
     global geneticOperators
     if not p[1] == "operators":
         if p[1] in geneticOperators:
-            print "Error, multiple definitions of genetic operators"
+            print "ERROR: multiple definitions of genetic operators"
             sys.exit()
         else:
             geneticOperators[p[1]] = p[3]
@@ -68,7 +68,7 @@ def p_ops(p):
             | DIVIDE ops2 '''
     global operators
     if p[1] in operators:
-        print "Error, operator already declared"
+        print "ERROR: operator already declared"
         sys.exit()
     else:
         operators[p[1]] = 1
@@ -93,7 +93,7 @@ def p_type(p):
         seenType = float
     else:
         #error
-        print "Type error"
+        print "ERROR: Type error"
         sys.exit()
 
 def p_var_declarator(p):
@@ -122,12 +122,10 @@ def p_var_declaration2(p):
         #check type
         varType = getResultingType(var.Type, op1.Type, operator)
         if varType == None:
-            print "ERROR, wrong type"
+            print "ERROR: wrong type"
             sys.exit()
         else: 
             q.generateQuad(operator, op1, None, var)
-
-
 
 def p_var_value(p):
     '''var_value : ID saw_id EQUALS expression SEMI'''
@@ -138,7 +136,7 @@ def p_var_value(p):
     #check type
     varType = getResultingType(var.Type, op1.Type, operator)
     if varType == None:
-        print "ERROR, wrong type"
+        print "ERROR: wrong type"
         sys.exit()
     else: 
         q.generateQuad(operator, op1, None, var)
@@ -165,7 +163,7 @@ def p_seen_comp(p):
     #check type
     varType = getResultingType(op1.Type, op2.Type, operator)
     if varType == None:
-        print "ERROR, invalid type in comp"
+        print "ERROR: invalid type in comparison"
         sys.exit()
     else:
         res = directoryTable[functionList[-1]].add_temp(varType)
@@ -195,7 +193,7 @@ def p_num_exp_q(p):
         #check type
         varType = getResultingType(op1.Type, op2.Type, operator)
         if varType == None:
-            print "ERROR, invalid type"
+            print "ERROR: invalid type"
             sys.exit()
         else:
             res = directoryTable[functionList[-1]].add_temp(varType)  
@@ -224,7 +222,7 @@ def p_term_q(p):
         operator = q.popOperatorStack()
         varType = getResultingType(op1.Type, op2.Type, operator)
         if varType == None:
-            print "ERROR, invalid type"
+            print "ERROR: invalid type"
             sys.exit()
         else:
             res = directoryTable[functionList[-1]].add_temp(varType)
@@ -252,7 +250,7 @@ def p_factor(p):
             operator = q.popOperatorStack()
             varType = getResultingType(op1.Type, op2.Type, operator)
             if varType == None:
-                print "ERROR, invalid type"
+                print "ERROR: invalid type"
                 sys.exit()
             else:
                 res = directoryTable[functionList[-1]].add_temp(varType)
@@ -398,8 +396,8 @@ def p_empty(p):
     pass
     
 def p_error(p):
-    print "Error de sintaxis en token: ", p.type
-    print "en la siguiente posicion: {0} ".format(p.lexpos)
+    print "ERROR: Syntax error in token: ", p.type
+    print "in position: {0} ".format(p.lexpos)
 
 import profile
 
